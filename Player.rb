@@ -3,10 +3,17 @@
 require 'gosu'
 
 class Player
+  attr_reader :x, :y
+  attr_accessor :score
+
   def initialize
     @image = Gosu::Image.new("images/starfighter.bmp")
     @x = @y = @vel_x = @vel_y = @angle = 0.0
     @score = 0
+  end
+
+  def score
+    @score
   end
 
   def warp(x, y)
@@ -22,8 +29,9 @@ class Player
   end
 
   def accelerate
-    @vel_x += Gosu.offset_x(@angle, 0.5)
-    @vel_y += Gosu.offset_y(@angle, 0.5)
+    power = 0.5
+    @vel_x += Gosu.offset_x(@angle, power)
+    @vel_y += Gosu.offset_y(@angle, power)
   end
 
   def move
