@@ -22,10 +22,30 @@ class Window < Gosu::Window
     @player2.warp(520, 240)
   end
 
+  def tick
+    update
+    return true
+  end
+
+  def start_time
+    @start_time ||= Time.now
+  end
+
   # Game loop
   def update
+    puts "updating, time_gosu: #{Gosu.milliseconds}, time_real: #{time_diff_milli(start_time, Time.now)}"
     @player1.player_input_movement
     @player2.player_input_movement
+
+    slow_operation
+  end
+
+  def slow_operation
+    sleep(0.5)
+  end
+
+  def time_diff_milli(start, finish)
+    (finish - start) * 1000.0
   end
 
   # Draw loop. No game logic should be done here.
